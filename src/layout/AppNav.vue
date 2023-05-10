@@ -58,6 +58,9 @@ const handleRemoveMenu = (item, index) => {
   </div>
 </template>
 <style lang="scss" scoped>
+.card{
+  padding: 10px;
+}
 .active {
   background-color: #3db9d3;
   color: #fff;
