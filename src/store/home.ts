@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 export const useMain = defineStore("main", {
-  // 相当于data
   state: () => {
     return {
       currentMenu: null,
@@ -57,9 +56,8 @@ export const useMain = defineStore("main", {
       ],
     };
   },
-  // 相当于计算属性
+
   getters: {},
-  // 相当于vuex的 mutation + action，可以同时写同步和异步的代码
   actions: {
     selectMenu(val) {
       if (val.name !== '"HomeDashboard"') {
@@ -69,19 +67,11 @@ export const useMain = defineStore("main", {
           this.tabList.push(val);
         }
       }
-      console.log(this.tabList);
+  
     },
     closeTag(index) {
-      /*   const delIndex = this.tabList.findIndex((val) => val.name === item.name);
-      console.log(delIndex);
-      
-      if (delIndex !== -1) {
-        this.tabList.splice(delIndex, 1);
-      }
- */
-      console.log(index);
+ 
       this.tabList.splice(index, 1);
-      console.log(this.tabList);
     },
 
 
