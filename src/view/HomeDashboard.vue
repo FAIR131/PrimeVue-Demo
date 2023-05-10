@@ -6,11 +6,11 @@ import { gantt } from 'dhtmlx-gantt'
 import { ref, onMounted } from 'vue'
 import { useMain } from '@/store/home'
 const pinia = useMain()
+
 onMounted(() => {
   chartData.value = setChartData()
   chartOptions.value = setChartOptions()
 
-  gantt.config.links = links
   gantt.init('gantt_here')
   const data = pinia.tasks
   gantt.parse({ data })
@@ -19,7 +19,7 @@ onMounted(() => {
 // 修改任务后触发
 gantt.attachEvent('onAfterTaskUpdate', function (id, item) {
   console.log(item)
-  const task = pinia.tasks.find(t => t.id === id)
+  const task = pinia.tasks.find((t) => t.id === id)
   if (task) {
     task.text = item.text
     task.start_date = item.start_date
@@ -29,54 +29,6 @@ gantt.attachEvent('onAfterTaskUpdate', function (id, item) {
   }
   console.log(pinia.tasks)
 })
-/*
-const tasks = [
-  {
-    id: 1,
-    text: '项目#1',
-    start_date: '01-04-2023',
-    duration: 5,
-    progress: 0.4,
-    open: true
-  },
-  {
-    id: 2,
-    text: '任务 #1-1',
-    start_date: '01-04-2023',
-    duration: 3,
-    progress: 0.6,
-    parent: 1
-  },
-  {
-    id: 3,
-    text: '任务 #1-2',
-    start_date: '3-04-2023',
-    duration: 2,
-    progress: 0.6,
-    parent: 1
-  },
-  {
-    id: 4,
-    text: '项目#2',
-    start_date: '02-04-2023',
-    duration: 3,
-    progress: 0.4,
-    open: true
-  },
-  {
-    id: 5,
-    text: '任务 #2-1',
-    start_date: '02-04-2023',
-    duration: 1,
-    progress: 0.6,
-    parent: 4
-  }
-] */
-
-const links = [
-  { id: 1, source: 1, target: 2, type: '1' },
-  { id: 2, source: 2, target: 3, type: '0' }
-]
 
 const chartData = ref()
 const chartOptions = ref()

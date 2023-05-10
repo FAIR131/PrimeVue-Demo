@@ -60,6 +60,7 @@ export const useMain = defineStore("main", {
   getters: {},
   actions: {
     selectMenu(val) {
+      
       if (val.name !== '"HomeDashboard"') {
         this.currentMenu = val;
         const index = this.tabList.findIndex((item) => item.name === val.name);
@@ -67,10 +68,9 @@ export const useMain = defineStore("main", {
           this.tabList.push(val);
         }
       }
-  
     },
+
     closeTag(index) {
- 
       this.tabList.splice(index, 1);
     },
 
