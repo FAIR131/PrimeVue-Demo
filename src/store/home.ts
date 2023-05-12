@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
+import {Itasks} from '@/types/store'
+import { Irouters } from "@/types/layout";
 export const useMain = defineStore("main", {
   state: () => {
     return {
-      currentMenu: null,
+      currentMenu: null as Irouters | null,
       tabList: [
         {
           path: "/",
@@ -10,7 +12,7 @@ export const useMain = defineStore("main", {
           name: "HomeDashboard",
           component: () => import("@/view/HomeDashboard.vue"),
         },
-      ],
+      ] as Irouters[],
 
       tasks: [
         {
@@ -53,14 +55,13 @@ export const useMain = defineStore("main", {
           progress: 0.6,
           parent: 4,
         },
-      ],
+      ] as Itasks[],
     };
   },
 
   getters: {},
   actions: {
-    selectMenu(val) {
-      
+    selectMenu(val:Irouters) {      
       if (val.name !== '"HomeDashboard"') {
         this.currentMenu = val;
         const index = this.tabList.findIndex((item) => item.name === val.name);
@@ -70,12 +71,12 @@ export const useMain = defineStore("main", {
       }
     },
 
-    closeTag(index) {
+    closeTag(index:number) {
       this.tabList.splice(index, 1);
     },
 
 
-    changeTasks(val) {
+    changeTasks(val:Itasks) {
       const task = this.tasks.find((t) => t.id === val.id);
       if (task) {
         task.text = val.text;

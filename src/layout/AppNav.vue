@@ -1,28 +1,30 @@
 <script setup lang="ts">
 import { useMain } from '@/store/home'
 import { useRouter, useRoute } from 'vue-router'
+import { Irouters } from '@/types/layout'
 
 const pinia = useMain()
 
 const router = useRouter()
 const route = useRoute()
-
+ 
 //  点击标签跳转
-const handleChangeMenu = (item) => {
+const handleChangeMenu = (item:Irouters) => {
   router.push({
     name: item.name
   })
 }
 
-const isActive = (item) => {
+const isActive = (item:Irouters) => {
   return item.name === router.currentRoute.value.name
 }
 
-const tags = pinia.tabList
+const tags: Irouters[] = pinia.tabList;
+
 
 // 点击标签删除
-const handleRemoveMenu = (item, index) => {
-  const tabLength = tags.length - 1
+const handleRemoveMenu = (item:Irouters, index:number) => {
+  const tabLength:number = tags.length - 1
   pinia.closeTag(index)
   if (item.name !== route.name) {
     // 没选中标签
