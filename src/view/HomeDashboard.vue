@@ -1,19 +1,58 @@
-<script setup>
+<script setup lang="ts">
 import Chart from 'primevue/chart'
 import 'dhtmlx-gantt/codebase/dhtmlxgantt.css'
 import { gantt } from 'dhtmlx-gantt'
-
+import { Icolums } from '@/types/homeDashboard'
 import { ref, onMounted } from 'vue'
 import { useMain } from '@/store/home'
 const pinia = useMain()
+
+const gantColumns:Icolums[]= [
+      {
+        name: 'id',
+        label: 'ID',
+        align: 'center',
+        width: '40'
+      },
+      {
+        name: 'text',
+        label: '任务名称',
+        tree: true,
+        width: '120'
+      },
+      {
+        name: 'start_date',
+        label: '计划开始时间',
+        align: 'center',
+        width: '90'
+      },
+      {
+        name: 'duration',
+        label: '任务期限',
+        align: 'center',
+        width: '40'
+      },
+      {
+        name: 'progress',
+        label: '进度',
+        align: 'center',
+        width: '40'
+      },
+      {
+        name: 'add',
+        label: '',
+        width: '40'
+      },
+    ];
 
 onMounted(() => {
   chartData.value = setChartData()
   chartOptions.value = setChartOptions()
 
   gantt.init('gantt_here')
-  const data = pinia.tasks
-  gantt.parse({ data })
+  // const data = pinia.tasks
+  gantt.parse({ data:pinia.tasks,links:pinia.links })
+  gantt.config.columns =gantColumns
 })
 
 // 修改任务后触发
